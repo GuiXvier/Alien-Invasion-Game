@@ -13,6 +13,10 @@ class Settings:
         """
         Inicializa os atributos de configuração do jogo.
         """
+        
+        """
+            Configurações da tela
+        """
         # Obtém a interface para manipular a resolução da tela usando a biblioteca ctypes.
         self.user32 = ctypes.windll.user32
         
@@ -27,3 +31,9 @@ class Settings:
         # Define a cor de fundo da tela do jogo em formato RGB (Red, Green, Blue).
         # Nesse caso, a cor é um roxo escuro, representado por (22, 8, 47).
         self.bg_color = (22, 8, 47)
+        
+        """
+            Configurações da espaçonave
+        """
+        
+        self.ship_speed_factor = 1.5

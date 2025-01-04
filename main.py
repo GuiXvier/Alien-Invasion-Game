@@ -20,13 +20,16 @@ def run_game():
     
     # Criação de uma instância de Ship, representando a nave controlada pelo jogador.
     # A nave é desenhada na tela criada anteriormente.
-    ship = Ship(screen)
+    ship = Ship(game_settings, screen)
     
     # Inicia o loop principal do jogo, mantendo o jogo em execução até que o jogador saia.
     while True:
         # Chama uma função do módulo game_functions para verificar eventos.
         # Essa função, geralmente, verifica inputs como pressionamento de teclas ou cliques do mouse.
-        gf.check_events()
+        gf.check_events(ship)
+        
+        # Atualiza a posição da nave na tela 
+        ship.update()
         
         # Atualiza a tela com base no estado atual do jogo, redesenhando os elementos.
         # Os argumentos fornecidos permitem que a função acesse as configurações,

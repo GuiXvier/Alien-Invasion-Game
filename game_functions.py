@@ -2,7 +2,34 @@
 import sys  # Biblioteca padrão do Python para manipulação do sistema.
 import pygame  # Biblioteca Pygame para desenvolvimento de jogos.
 
-def check_events():
+# Função reponsável por verificar os eventos do tipo Key Down (Pressionamento de tecla)
+def check_keydown_events(event, ship):
+    """
+    Responde a pressionamento de tecla.
+    Define as flasgs de movimento da espaçonave como True quando as teclas
+    correspondentes são pressioandas
+    """
+    
+    if event.key == pygame.K_RIGHT: # Tecla de seta para direita
+        ship.moving_right = True
+    elif event.key == pygame.K_LEFT: # Tecla de seta para esquerda
+        ship.moving_left = True
+        
+
+# Função reponsável por verificar os eventos do tipo Key Up (Soltura de tecla)        
+def check_keyup_events(event, ship):
+    """
+    Responde a solturas de tecla.
+    Define as flasgs de movimento da espaçonave como false quando as teclas
+    correspondentes são pressioandas
+    """
+    
+    if event.key == pygame.K_RIGHT: # Tecla de seta para direita
+        ship.moving_right = False
+    elif event.key == pygame.K_LEFT: # Tecla de seta para esquerda
+        ship.moving_left = False
+
+def check_events(ship):
     """
     Responde a eventos de pressionamento de teclas e de mouse.
 
@@ -13,6 +40,13 @@ def check_events():
     for event in pygame.event.get():  # Itera sobre todos os eventos na fila de eventos do Pygame.
         if event.type == pygame.QUIT:  # Verifica se o evento é o fechamento da janela.
             sys.exit()  # Encerra o programa de forma segura.
+        
+        elif event.type == pygame.KEYDOWN: # Pressionamento de uma tecla
+            check_keydown_events(event, ship)
+            
+        elif event.type == pygame.KEYUP: # Soltura de uma tecla
+            check_keyup_events(event, ship)
+            
 
 def update_screen(ai_settings, screen, ship):
     """
