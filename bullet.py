@@ -2,15 +2,23 @@ import pygame
 from pygame.sprite import Sprite
 
 class Bullet(Sprite):
-    """Uma classe que administra projéteis disparados pela espaçonave"""
+    """Uma classe que administra projéteis disparados pela espaçonave."""
     
     def __init__(self, ai_settings, screen, ship):
+        """
+        Cria um objeto para o projétil na posição atual da espaçonave.
         
-        super(Bullet, self).__init__() # Inicializa a classe base Sprite
+        Args:
+            ai_settings: Configurações do jogo.
+            screen: Superfície onde o projétil será desenhado.
+            ship: Objeto da espaçonave que dispara o projétil.
+        """
+        super(Bullet, self).__init__()  # Inicializa a classe base Sprite
         self.screen = screen
-        
+
+        # Cria um retângulo para o projétil em (0, 0) e define a posição inicial
         self.rect = pygame.Rect(0, 0, ai_settings.bullet_width, ai_settings.bullet_height)
-        self.rect.centerx = ship.rect.centerx # Centraliza o projétil com a espaçonave
+        self.rect.centerx = ship.rect.centerx  # Centraliza o projétil com a espaçonave
         self.rect.top = ship.rect.top  # Define a posição inicial no topo da espaçonave
 
         # Armazena a posição do projétil como um valor decimal para movimento suave
@@ -19,7 +27,7 @@ class Bullet(Sprite):
         # Atributos do projétil
         self.color = ai_settings.bullet_color
         self.speed_factor = ai_settings.bullet_speed_factor
-        
+
     def update(self):
         """
         Move o projétil para cima na tela.
@@ -32,5 +40,3 @@ class Bullet(Sprite):
         Desenha o projétil na tela.
         """
         pygame.draw.rect(self.screen, self.color, self.rect)
-        
-        
