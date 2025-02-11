@@ -40,7 +40,7 @@ def run_game():
         
         gf.update_bullets(bullets)  # Atualiza a posição dos projéteis e remove os que saíram da tela.
         
-        gf.update_aliens(aliens)
+        gf.update_aliens(ai_settings, aliens) 
         
         # Atualiza a tela com as novas posições
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)  # Redesenha a tela com os elementos atualizados.
