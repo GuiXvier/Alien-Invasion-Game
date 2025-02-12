@@ -44,8 +44,6 @@ class Ship:
 
         # Atualiza a posição do retângulo com base no valor atualizado do centro
         self.rect.centerx = self.center
-
-
     
     def blitme(self):
         """
@@ -54,3 +52,7 @@ class Ship:
         Utiliza o método `blit` para desenhar a imagem na tela com base no retângulo `rect`.
         """
         self.screen.blit(self.image, self.rect)
+
+    def center_ship(self): 
+        """Centraliza a espaçonave na tela."""
+        self.center = self.screen_rect.centerx 

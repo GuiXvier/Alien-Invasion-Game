@@ -3,7 +3,7 @@ from settings import Settings  # Importa a classe Settings para acessar as confi
 from ship import Ship  # Importa a classe Ship para controlar a espaçonave.
 import game_functions as gf  # Importa o módulo game_functions para funções auxiliares do jogo.
 from pygame.sprite import Group  # Importa a classe Group para gerenciar grupos de sprites.
-from alien import Alien  # Importa a classe Alien para criar e gerenciar alienígenas.
+from game_stats import GameStats
 
 def run_game():
     """
@@ -14,6 +14,9 @@ def run_game():
     
     # Cria uma instância da classe Settings, que contém todas as configurações do jogo.
     ai_settings = Settings()
+    
+    # Cria uma instância da classe GameStats para armazenar os dados estatísticos do jogo
+    stats = GameStats(ai_settings)
 
     # Inicializa a tela com as dimensões especificadas nas configurações.
     # O método pygame.display.set_mode() define o tamanho da tela baseado nos atributos
@@ -35,15 +38,17 @@ def run_game():
         # Verifica eventos de entrada (teclado/mouse)
         gf.check_events(ai_settings, screen, ship, bullets)  # Processa eventos de teclado e mouse.
         
-        # Atualiza a posição da espaçonave
-        ship.update()  # Atualiza a posição da espaçonave com base nas flags de movimento.
-        
-        gf.update_bullets(bullets)  # Atualiza a posição dos projéteis e remove os que saíram da tela.
-        
-        gf.update_aliens(ai_settings, aliens) 
-        
-        # Atualiza a tela com as novas posições
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)  # Redesenha a tela com os elementos atualizados.
+        if stats.game_active:
+            # Atualiza a posição da espaçonave
+            ship.update()  # Atualiza a posição da espaçonave com base nas flags de movimento.
+            
+            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)  # Atualiza a posição dos projéteis e remove os que saíram da tela.
+            
+            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+            
+            
+            # Atualiza a tela com as novas posições
+            gf.update_screen(ai_settings, screen, ship, aliens, bullets)  # Redesenha a tela com os elementos atualizados.
 
 
 # Inicia o jogo chamando a função principal.
