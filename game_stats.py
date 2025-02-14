@@ -10,8 +10,9 @@ class GameStats:
         """
         self.ai_settings = ai_settings  # Armazena as configurações do jogo.
         self.reset_stats()  # Inicializa as estatísticas variáveis.
-        # Inicia a Invasão Alienígena em um estado ativo 
-        self.game_active = True 
+        
+        # Inicia o jogo em um estado inativo
+        self.game_active = False 
 
     def reset_stats(self):
         """

@@ -1,3 +1,4 @@
+import ctypes
 class Settings:
     """
     Uma classe para armazenar todas as configurações do jogo Alien Invasion.
@@ -8,7 +9,7 @@ class Settings:
         """
         # Configurações da tela
         self.screen_width = 1200  # Largura da tela em pixels.
-        self.screen_height = 800  # Altura da tela em pixels.
+        self.screen_height = ctypes.windll.user32.GetSystemMetrics(1) - 100  # Altura da tela em pixels.
         self.bg_color = (230, 230, 230)  # Cor de fundo da tela no formato RGB (cinza claro).
         
         # Configurações da espaçonave 

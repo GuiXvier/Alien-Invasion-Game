@@ -4,6 +4,7 @@ from ship import Ship  # Importa a classe Ship para controlar a espaçonave.
 import game_functions as gf  # Importa o módulo game_functions para funções auxiliares do jogo.
 from pygame.sprite import Group  # Importa a classe Group para gerenciar grupos de sprites.
 from game_stats import GameStats
+from button import Button
 
 def run_game():
     """
@@ -32,11 +33,16 @@ def run_game():
     
     # Cria a frota de alienígenas
     gf.create_fleet(ai_settings, screen, ship, aliens)  # Chama a função para criar a frota de alienígenas.
+    
+    pygame.display.set_caption("Alien Invasion")
+    
+    # Cria o botão Play
+    play_button = Button(ai_settings, screen, "Play")
 
     # Inicia o laço principal do jogo
     while True:
         # Verifica eventos de entrada (teclado/mouse)
-        gf.check_events(ai_settings, screen, ship, bullets)  # Processa eventos de teclado e mouse.
+        gf.check_events(ai_settings, screen, stats, play_button, ship, bullets)  # Processa eventos de teclado e mouse.
         
         if stats.game_active:
             # Atualiza a posição da espaçonave
@@ -45,10 +51,9 @@ def run_game():
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets)  # Atualiza a posição dos projéteis e remove os que saíram da tela.
             
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
-            
-            
+        
             # Atualiza a tela com as novas posições
-            gf.update_screen(ai_settings, screen, ship, aliens, bullets)  # Redesenha a tela com os elementos atualizados.
+            gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)  # Redesenha a tela com os elementos atualizados.
 
 
 # Inicia o jogo chamando a função principal.
