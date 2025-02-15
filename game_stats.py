@@ -5,8 +5,7 @@ class GameStats:
 
     def __init__(self, ai_settings):
         """
-        Inicializa os dados estatísticos do jogo.
-        :param ai_settings: Instância das configurações do jogo.
+        Inicializa os dados estatísticos do jogo..
         """
         self.ai_settings = ai_settings  # Armazena as configurações do jogo.
         self.reset_stats()  # Inicializa as estatísticas variáveis.
