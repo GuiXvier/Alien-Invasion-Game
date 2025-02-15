@@ -5,6 +5,7 @@ import game_functions as gf  # Importa o módulo game_functions para funções a
 from pygame.sprite import Group  # Importa a classe Group para gerenciar grupos de sprites.
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 def run_game():
     """
@@ -30,6 +31,7 @@ def run_game():
     ship = Ship(ai_settings, screen)  # Instancia a espaçonave.
     bullets = Group()  # Cria um grupo para armazenar os projéteis.
     aliens = Group()  # Cria um grupo para armazenar os alienígenas.
+    sb = Scoreboard(ai_settings, screen, stats) 
     
     # Cria a frota de alienígenas
     gf.create_fleet(ai_settings, screen, ship, aliens)  # Chama a função para criar a frota de alienígenas.
@@ -48,12 +50,12 @@ def run_game():
             # Atualiza a posição da espaçonave
             ship.update()  # Atualiza a posição da espaçonave com base nas flags de movimento.
             
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)  # Atualiza a posição dos projéteis e remove os que saíram da tela.
+            gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)  # Atualiza a posição dos projéteis e remove os que saíram da tela.
             
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
     
         # Atualiza a tela com as novas posições
-        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)  # Redesenha a tela com os elementos atualizados.
+        gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)  # Redesenha a tela com os elementos atualizados.
 
 
 # Inicia o jogo chamando a função principal.

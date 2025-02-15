@@ -28,29 +28,32 @@ class Settings:
         # Inicializa as configurações dinâmicas do jogo
         self.initialize_dynamic_settings()
         
-def initialize_dynamic_settings(self):
-    """Inicializa as configurações que mudam no decorrer do jogo."""
-    # Velocidade da espaçonave
-    self.ship_speed_factor = 1.5
+    def initialize_dynamic_settings(self):
+        """Inicializa as configurações que mudam no decorrer do jogo."""
+        # Velocidade da espaçonave
+        self.ship_speed_factor = 1.5
 
-    # Velocidade dos projéteis
-    self.bullet_speed_factor = 3
+        # Velocidade dos projéteis
+        self.bullet_speed_factor = 3
 
-    # Velocidade dos alienígenas
-    self.alien_speed_factor = 1
+        # Velocidade dos alienígenas
+        self.alien_speed_factor = 1
 
-    # Direção da frota de alienígenas (1 = direita, -1 = esquerda)
-    self.fleet_direction = 1
-    
-def increase_speed(self):
-    """Aumenta as configurações de velocidade."""
-    # Aumenta a velocidade da espaçonave
-    self.ship_speed_factor *= self.speedup_scale
+        # Direção da frota de alienígenas (1 = direita, -1 = esquerda)
+        self.fleet_direction = 1
+        
+        # Pontuação 
+        self.alien_points = 50
+        
+    def increase_speed(self):
+        """Aumenta as configurações de velocidade."""
+        # Aumenta a velocidade da espaçonave
+        self.ship_speed_factor *= self.speedup_scale
 
-    # Aumenta a velocidade dos projéteis
-    self.bullet_speed_factor *= self.speedup_scale
+        # Aumenta a velocidade dos projéteis
+        self.bullet_speed_factor *= self.speedup_scale
 
-    # Aumenta a velocidade dos alienígenas
-    self.alien_speed_factor *= self.speedup_scale
+        # Aumenta a velocidade dos alienígenas
+        self.alien_speed_factor *= self.speedup_scale
         
         

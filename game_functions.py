@@ -4,7 +4,7 @@ from bullet import Bullet
 from alien import Alien
 from time import sleep
 
-def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button): 
+def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button):
     """
     Atualiza as imagens na tela e alterna para a nova tela.
 
@@ -23,6 +23,9 @@ def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button
     ship.blitme()
     
     aliens.draw(screen)
+    
+    # Desenha a informação sobre pontuação
+    sb.show_score()
     
     # Desenha o botão "Play" apenas se o jogo estiver inativo
     if not stats.game_active:
@@ -117,7 +120,7 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
             create_fleet(ai_settings, screen, ship, aliens)
             ship.center_ship()
 
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """Atualiza a posição dos projéteis e remove os que estão fora da tela."""
     # Atualiza as posições dos projéteis
     bullets.update()
@@ -128,13 +131,20 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
             bullets.remove(bullet)
             
     # Verifica colisões entre projéteis e alienígenas
-    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
+    check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets)
         
-def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
+def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """Responde a colisões entre projéteis e alienígenas."""
     
     # Remove qualquer projétil e alienígena que tenham colidido
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    
+    if collisions:
+        # Incrementa a pontuação com base nos pontos do alienígena destruído
+        stats.score += ai_settings.alien_points
+
+        # Atualiza a imagem da pontuação na tela
+        sb.prep_score()
     
     # Destrói projéteis existentes, aumenta a velocidade do jogo e cria nova frota 
     if len(aliens) == 0:
