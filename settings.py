@@ -24,6 +24,9 @@ class Settings:
 
         # Taxa com que a velocidade do jogo aumenta
         self.speedup_scale = 1.1
+        
+        # A taxa com que os pontos para cada alienígena aumentam
+        self.score_scale = 1.5
 
         # Inicializa as configurações dinâmicas do jogo
         self.initialize_dynamic_settings()
@@ -56,4 +59,5 @@ class Settings:
         # Aumenta a velocidade dos alienígenas
         self.alien_speed_factor *= self.speedup_scale
         
+        self.alien_points = int(self.alien_points * self.score_scale)
         

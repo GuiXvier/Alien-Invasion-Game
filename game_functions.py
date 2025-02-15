@@ -140,8 +140,9 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     
     if collisions:
-        # Incrementa a pontuação com base nos pontos do alienígena destruído
-        stats.score += ai_settings.alien_points
+        for aliens in collisions.values(): 
+            stats.score += ai_settings.alien_points * len(aliens)
+            check_high_score(stats, sb)
 
         # Atualiza a imagem da pontuação na tela
         sb.prep_score()
@@ -263,3 +264,9 @@ def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
             # Trata como se a espaçonave tivesse sido atingida
             ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
             break  # Sai do loop assim que um alienígena atingir a parte inferior
+        
+def check_high_score(stats, sb):
+        """Verifica se há uma nova pontuação máxima."""
+        if stats.score > stats.high_score:
+            stats.high_score = stats.score
+            sb.prep_high_score()
