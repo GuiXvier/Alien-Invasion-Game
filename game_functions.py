@@ -67,7 +67,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def check_events(ai_settings, screen, stats, play_button, ship, bullets): 
+def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets):
     """
     Responde a eventos de pressionamento de teclas e de mouse.
     Identifica os eventos capturados e chama as funções apropriadas para
@@ -86,13 +86,36 @@ def check_events(ai_settings, screen, stats, play_button, ship, bullets):
             mouse_x, mouse_y = pygame.mouse.get_pos()
             
             # Verifica se o clique foi no botão "Play"
-            check_play_button(stats, play_button, mouse_x, mouse_y)
+            check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y)
             
-def check_play_button(stats, play_button, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     """Inicia um novo jogo quando o jogador clicar em Play."""
-    # Verifica se a posição do mouse está dentro do retângulo do botão "Play"
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
-        stats.game_active = True  # Ativa o jogo
+    
+    # Verifica se o clique do mouse foi dentro do retângulo do botão "Play"
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+
+    # Se o botão foi clicado e o jogo não está ativo, reinicia o jogo
+    if button_clicked and not stats.game_active:
+        
+        # Reinicia as configurações do jogo 
+        ai_settings.initialize_dynamic_settings()
+        
+        # Oculta o cursor do mouse
+        pygame.mouse.set_visible(False)
+        
+        # Verifica se o clique do mouse foi dentro do retângulo do botão "Play"
+        if play_button.rect.collidepoint(mouse_x, mouse_y):
+            # Reinicia os dados estatísticos do jogo
+            stats.reset_stats()
+            stats.game_active = True  # Ativa o jogo
+
+            # Esvazia a lista de alienígenas e de projéteis
+            aliens.empty()
+            bullets.empty()
+
+            # Cria uma nova frota de alienígenas e centraliza a espaçonave
+            create_fleet(ai_settings, screen, ship, aliens)
+            ship.center_ship()
 
 def update_bullets(ai_settings, screen, ship, aliens, bullets):
     """Atualiza a posição dos projéteis e remove os que estão fora da tela."""
@@ -113,9 +136,10 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     # Remove qualquer projétil e alienígena que tenham colidido
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     
-    # Se todos os alienígenas foram destruídos, limpa os projéteis e cria uma nova frota
+    # Destrói projéteis existentes, aumenta a velocidade do jogo e cria nova frota 
     if len(aliens) == 0:
         bullets.empty()  # Remove os projéteis restantes
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)  # Cria uma nova frota
 
 
@@ -212,6 +236,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     else:
         # Se as vidas acabarem, desativa o jogo
         stats.game_active = False
+        pygame.mouse.set_visible(True)
     
 def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
     """

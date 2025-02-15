@@ -17,4 +17,5 @@ class GameStats:
         """
         Inicializa as estatísticas que podem mudar durante o jogo.
         """
-        self.ships_left = self.ai_settings.ship_limit  
+        self.ships_left = self.ai_settings.ship_limit
+        self.score = 0
