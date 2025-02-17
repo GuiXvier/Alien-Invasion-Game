@@ -1,4 +1,6 @@
 import pygame.font
+from pygame.sprite import Group
+from ship import Ship
 
 class Scoreboard:
     """Uma classe para mostrar informações sobre pontuação."""
@@ -14,9 +16,21 @@ class Scoreboard:
         self.text_color = (30, 30, 30)  # Cor do texto (preto)
         self.font = pygame.font.SysFont(None, 48)  # Fonte do texto
 
-        # Prepara a imagem das pontuações iniciais
+        # Prepara as imagens das pontuações iniciais
         self.prep_score()
         self.prep_high_score()
+        self.prep_level()
+        self.prep_ships()
+
+    def prep_level(self):
+        """Transforma o nível em uma imagem renderizada."""
+        # Renderiza o nível como uma imagem
+        self.level_image = self.font.render(str(self.stats.level), True, self.text_color, self.ai_settings.bg_color)
+
+        # Posiciona o nível abaixo da pontuação
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.right = self.score_rect.right  # Alinha à direita da pontuação
+        self.level_rect.top = self.score_rect.bottom + 10  # Posiciona 10 pixels abaixo da pontuação
     
     def prep_score(self):
         """Transforma a pontuação em uma imagem renderizada."""
@@ -41,6 +55,10 @@ class Scoreboard:
         """Desenha a pontuação na tela."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
+        self.screen.blit(self.level_image, self.level_rect)
+        
+        # Desenha as espaçonaves 
+        self.ships.draw(self.screen)
 
         
     def prep_high_score(self):
@@ -58,4 +76,16 @@ class Scoreboard:
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.centerx = self.screen_rect.centerx  # Centraliza horizontalmente
         self.high_score_rect.top = self.score_rect.top  # Alinha ao topo da pontuação atual
+        
+    def prep_ships(self):
+        """Mostra quantas espaçonaves restam."""
+        # Cria um grupo para armazenar as imagens das espaçonaves
+        self.ships = Group()
+
+        # Cria uma espaçonave para cada vida restante
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_settings, self.screen)  # Cria uma nova instância da espaçonave
+            ship.rect.x = 10 + ship_number * ship.rect.width  # Posiciona horizontalmente
+            ship.rect.y = 10  # Posiciona verticalmente
+            self.ships.add(ship)  # Adiciona a espaçonave ao grupo
     

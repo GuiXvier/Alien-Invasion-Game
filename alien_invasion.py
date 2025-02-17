@@ -44,7 +44,7 @@ def run_game():
     # Inicia o laço principal do jogo
     while True:
         # Verifica eventos de entrada (teclado/mouse)
-        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)  # Processa eventos de teclado e mouse.
+        gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)  # Processa eventos de teclado e mouse.
         
         if stats.game_active:
             # Atualiza a posição da espaçonave
@@ -52,7 +52,7 @@ def run_game():
             
             gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)  # Atualiza a posição dos projéteis e remove os que saíram da tela.
             
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets)
     
         # Atualiza a tela com as novas posições
         gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)  # Redesenha a tela com os elementos atualizados.

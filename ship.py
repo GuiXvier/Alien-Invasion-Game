@@ -1,15 +1,15 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """Uma classe para gerenciar a espaçonave."""
     
     def __init__(self, ai_settings,screen):
         """
         Inicializa a espaçonave e define sua posição inicial.
-        
-        Parâmetros:
-        - screen: Superfície onde a espaçonave será desenhada.
         """
+        super(Ship, self).__init__() 
+        
         self.screen = screen  # Armazena a superfície da tela para desenhar a espaçonave.
         self.ai_settings = ai_settings
         
