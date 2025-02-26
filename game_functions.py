@@ -162,8 +162,6 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         # Aumenta o nível
         stats.level += 1
         sb.prep_level()
-        
-
 
 def get_number_aliens_x(ai_settings, alien_width):
     """Determina o número de alienígenas que cabem em uma linha."""
@@ -260,9 +258,6 @@ def ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets):
 
         # Faz uma pausa para que o jogador perceba o impacto
         sleep(0.5)
-        
-        stats.game_active = False
-        pygame.mouse.set_visible(True)
     else:
         # Se as vidas acabarem, desativa o jogo
         stats.game_active = False

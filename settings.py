@@ -1,4 +1,3 @@
-import ctypes
 class Settings:
     """
     Uma classe para armazenar todas as configurações do jogo Alien Invasion.
@@ -40,7 +39,7 @@ class Settings:
         self.bullet_speed_factor = 3
 
         # Velocidade dos alienígenas
-        self.alien_speed_factor = 1
+        self.alien_speed_factor = 1.5
 
         # Direção da frota de alienígenas (1 = direita, -1 = esquerda)
         self.fleet_direction = 1

@@ -10,6 +10,7 @@ class Alien(Sprite):
         super(Alien, self).__init__()  # Inicializa a classe base Sprite.
         self.screen = screen  # Armazena a superfície da tela para desenhar o alienígena.
         self.ai_settings = ai_settings  # Armazena as configurações do jogo.
+        
         # Configurações dos alienígenas 
         self.alien_speed_factor = 1
         
