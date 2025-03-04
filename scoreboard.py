@@ -13,7 +13,7 @@ class Scoreboard:
         self.stats = stats
 
         # Configurações de fonte para as informações de pontuação
-        self.text_color = (30, 30, 30)  # Cor do texto (preto)
+        self.text_color = (255, 255, 255)  # Cor do texto
         self.font = pygame.font.SysFont(None, 48)  # Fonte do texto
 
         # Prepara as imagens das pontuações iniciais
@@ -25,7 +25,7 @@ class Scoreboard:
     def prep_level(self):
         """Transforma o nível em uma imagem renderizada."""
         # Renderiza o nível como uma imagem
-        self.level_image = self.font.render(str(self.stats.level), True, self.text_color, self.ai_settings.bg_color)
+        self.level_image = self.font.render(str(self.stats.level), True, self.text_color, None)
 
         # Posiciona o nível abaixo da pontuação
         self.level_rect = self.level_image.get_rect()
@@ -44,7 +44,7 @@ class Scoreboard:
         score_str = "{:,}".format(rounded_score)
 
         # Renderiza a pontuação como uma imagem
-        self.score_image = self.font.render(score_str, True, self.text_color, self.ai_settings.bg_color)
+        self.score_image = self.font.render(score_str, True, self.text_color, None)
 
         # Posiciona a pontuação na parte superior direita da tela
         self.score_rect = self.score_image.get_rect()
@@ -70,7 +70,7 @@ class Scoreboard:
         high_score_str = "{:,}".format(high_score)
 
         # Renderiza a pontuação máxima como uma imagem
-        self.high_score_image = self.font.render(high_score_str, True, self.text_color, self.ai_settings.bg_color)
+        self.high_score_image = self.font.render(high_score_str, True, self.text_color, None)
 
         # Centraliza a pontuação máxima na parte superior da tela
         self.high_score_rect = self.high_score_image.get_rect()
