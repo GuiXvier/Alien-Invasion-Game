@@ -1,3 +1,4 @@
+import ctypes
 class Settings:
     """
     Uma classe para armazenar todas as configurações do jogo Alien Invasion.
@@ -19,7 +20,7 @@ class Settings:
         self.bullets_allowed = 3  # Número máximo de projéteis na tela
 
         # Configurações dos alienígenas
-        self.fleet_drop_speed = 10  # Velocidade de descida da frota de alienígenas
+        self.fleet_drop_speed = 30  # Velocidade de descida da frota de alienígenas
 
         # Taxa com que a velocidade do jogo aumenta
         self.speedup_scale = 1.1
@@ -33,13 +34,13 @@ class Settings:
     def initialize_dynamic_settings(self):
         """Inicializa as configurações que mudam no decorrer do jogo."""
         # Velocidade da espaçonave
-        self.ship_speed_factor = 1.5
+        self.ship_speed_factor = 6.75
 
         # Velocidade dos projéteis
-        self.bullet_speed_factor = 3
+        self.bullet_speed_factor = 13.5
 
         # Velocidade dos alienígenas
-        self.alien_speed_factor = 1.5
+        self.alien_speed_factor = 4.5
 
         # Direção da frota de alienígenas (1 = direita, -1 = esquerda)
         self.fleet_direction = 1

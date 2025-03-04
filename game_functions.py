@@ -11,8 +11,13 @@ def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_bu
     Essa função é chamada a cada iteração do loop principal para redesenhar
     a tela com os elementos atualizados.
     """
+    
+    bg = pygame.image.load(r"C:\Users\guilh\OneDrive\Desktop\bg.bmp")
+    
     # Preenche a tela com a cor de fundo definida nas configurações.
-    screen.fill(ai_settings.bg_color)
+    #screen.fill(ai_settings.bg_color)
+    
+    screen.blit(bg, (0, 0))
     
     # Redesenha todos os projéteis atrás da espaçonave e dos alienígenas
     for bullet in bullets.sprites():
